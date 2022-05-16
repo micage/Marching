@@ -44,7 +44,7 @@ def sphere(radius, n_rho, n_phi):
             for v in tri:
                 v += n
             verts += tri
-            tri = [ grid[j+1][i  ], grid[j][i+1], grid[j+1][i+1] ]
+            tri = [ grid[j+1][i  ], grid[j+1][i+1], grid[j][i+1] ]
             n = normal(*tri)
             for v in tri:
                 v += n
