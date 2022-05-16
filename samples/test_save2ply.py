@@ -30,7 +30,7 @@ def vertex():
 
     ]
 
-a = [rng.random(size=8)*2-1 for y in range(ny*3)]
+a = [rng.random(size=8)*2-1 for _ in range(ny*3)]
 
 for line in a:
     for val in line:

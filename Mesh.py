@@ -1,4 +1,11 @@
-def ply_header(num_verts, num_triangles):
+
+class Mesh:
+    def __init__(self):
+        self.positions = []
+        self.normals = []
+        self.uvs = []
+
+def ply_header(num_verts):
     return f'''ply
 format ascii 1.0
 comment Created by micage
@@ -6,11 +13,11 @@ element vertex {num_verts}
 property float x
 property float y
 property float z
+property float s
+property float t
 property float nx
 property float ny
 property float nz
-property float s
-property float t
 element face {int(num_verts/3)}
 property list uchar uint vertex_indices
 end_header
@@ -30,15 +37,15 @@ def generate_normals(mesh):
     for i in len(verts):
         before = verts[:i]
         after = verts[i+1:]
-        all = before + after
+        all = before + after # don't do this! better iterate them separately
         vert = verts[i]
-        dupes = []
+        star = [] # all vertices at the same point in space
         for ii in range(len(all)):
             if all[ii] == vert:
-                dupes.append()
+                star.append()
         # find triangle, here we know the positions of the triangle
         # because they were generated
-        conn_tris = map(lambda dup: tris[int(dup/3)], dupes) # generator of a 3-tuple of vertex indices
+        conn_tris = map(lambda dup: tris[int(dup/3)], star) # generator of a 3-tuple of vertex indices
         # calculate face normals
         for tri in conn_tris:
             v1 = tri[0]
@@ -59,7 +66,6 @@ def save(file, mesh):
     for vert in verts:
         for val in vert:
             f.write(f"{val} ")
-        f.write("0.0 0.0 0.0 0.0 0.0")
         f.write("\n")
 
     # generate face indices
