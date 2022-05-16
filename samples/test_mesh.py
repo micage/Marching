@@ -44,7 +44,7 @@ def sphere(radius, n_rho, n_phi):
             for v in tri:
                 v += n
             verts += tri
-            tri = [ grid[j][i+1], grid[j+1][i  ], grid[j+1][i+1] ]
+            tri = [ grid[j+1][i  ], grid[j][i+1], grid[j+1][i+1] ]
             n = normal(*tri)
             for v in tri:
                 v += n
@@ -59,4 +59,4 @@ def sphere(radius, n_rho, n_phi):
     return { "verts": verts, "tris": [] }
 
 mesh = sphere(10, 1<<4, 1<<3)
-Mesh.save("assets/sphere20.ply", mesh)
+Mesh.save("assets/sphere30.ply", mesh)
